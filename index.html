@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor Sucupira | Portfólio Pessoal</title>
+    <meta name="description" content="Conheça minha trajetória, habilidades e projetos. Um espaço dedicado à minha jornada profissional e pessoal.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. VARIÁVEIS E RESET --- */
+        :root {
+            --bg-color: #f8f9fa;
+            --sidebar-bg: #ffffff;
+            --text-main: #333333;
+            --text-light: #666666;
+            --accent-color: #2c5f58; /* Verde Petróleo Elegante */
+            --accent-light: #e0f2f1;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --transition: all 0.4s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden; /* O conteúdo rola dentro da main */
+        }
+
+        /* --- 2. SIDEBAR (NAVEGAÇÃO) --- */
+        aside {
+            width: 300px;
+            background: var(--sidebar-bg);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            z-index: 10;
+        }
+
+        .profile-header { text-align: center; }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--accent-light);
+        }
+
+        .profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .profile-role {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav ul { list-style: none; margin-top: 40px; }
+        
+        nav li { margin-bottom: 15px; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 400;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        nav a i { margin-right: 15px; width: 20px; text-align: center; }
+
+        nav a:hover, nav a.active {
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .social-links a { color: var(--text-light); font-size: 1.2rem; transition: var(--transition); }
+        .social-links a:hover { color: var(--accent-color); transform: translateY(-3px); }
+
+        /* --- 3. ÁREA DE CONTEÚDO --- */
+        main {
+            flex: 1;
+            padding: 60px 80px;
+            overflow-y: auto; /* Rolagem suave interna */
+            position: relative;
+        }
+
+        /* Animação de Entrada */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            margin-top: 10px;
+        }
+
+        p { font-size: 1.1rem; line-height: 1.8; color: var(--text-light); margin-bottom: 20px; }
+
+        /* --- SEÇÕES ESPECÍFICAS --- */
+        
+        /* Home */
+        .hero-text { max-width: 600px; margin-top: 10%; }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+        .btn:hover { background-color: #1a3c38; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* Habilidades (Tags) */
+        .skills-container { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px; }
+        .skill-tag {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 1rem;
+            border: 1px solid #eee;
+        }
+        .skill-tag i { color: var(--accent-color); margin-right: 8px; }
+
+        /* Projetos (Grid) */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+        .project-card:hover { transform: translateY(-5px); border-left-color: var(--accent-color); }
+        .project-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+
+        /* Contato (Form simples) */
+        .form-group { margin-bottom: 20px; }
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Lato', sans-serif;
+            background: white;
+        }
+        textarea { height: 150px; resize: none; }
+
+        /* --- 4. RESPONSIVIDADE --- */
+        .mobile-nav-toggle { display: none; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; }
+            aside {
+                width: 100%;
+                padding: 20px;
+                position: relative;
+                box-shadow: none;
+                border-bottom: 1px solid #eee;
+            }
+            .profile-header { display: flex; align-items: center; gap: 20px; text-align: left; }
+            .profile-img { width: 60px; height: 60px; margin: 0; }
+            nav { display: none; } /* Ocultar menu padrão no mobile para simplificar */
+            
+            /* Menu inferior fixo estilo app */
+            .mobile-menu {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                z-index: 100;
+                justify-content: space-around;
+                padding: 10px 0;
+            }
+            .mobile-menu a {
+                color: var(--text-light);
+                font-size: 1.5rem;
+                padding: 10px;
+            }
+            .mobile-menu a.active { color: var(--accent-color); }
+
+            main { padding: 30px 20px 80px 20px; } /* Espaço extra no fundo para o menu */
+            .hero-text h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="profile-header">
+            <img src="c:\Users\victo\Downloads\Captura de tela 2026-02-08 130348.png" alt="Foto de Victor Sucupira" class="profile-img">
+            <div>
+                <h3 class="profile-name">Victor Sucupira</h3>
+                <p class="profile-role">Formado em Tecnologia</p>
+            </div>
+        </div>
+
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="#" class="nav-link active" data-target="home"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="#" class="nav-link" data-target="sobre"><i class="fas fa-user"></i> Sobre Mim</a></li>
+                <li><a href="#" class="nav-link" data-target="skills"><i class="fas fa-layer-group"></i> Habilidades</a></li>
+                <li><a href="#" class="nav-link" data-target="projetos"><i class="fas fa-briefcase"></i> Projetos</a></li>
+                <li><a href="#" class="nav-link" data-target="hobbies"><i class="fas fa-coffee"></i> Hobbies</a></li>
+                <li><a href="#" class="nav-link" data-target="contato"><i class="fas fa-envelope"></i> Contato</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-links">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </aside>
+
+    <main>
+        
+        <section id="home" class="tab-content active">
+            <div class="hero-text">
+                <p style="color: var(--accent-color); font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Olá, seja bem-vindo(a)</p>
+                <h1>Tranformando Ideias do Mente para a Realidade</h1>
+                <p>Sou o Victor, um profissional apaixonado por criar, conectar e resolver problemas. Aqui você encontra um pouco da minha visão de mundo e do meu trabalho.</p>
+                <a href="#" class="btn" onclick="activateTab('projetos')">Ver Meus Projetos</a>
+            </div>
+        </section>
+
+        <section id="sobre" class="tab-content">
+            <h2>Minha História</h2>
+            <p>Tudo começou com uma curiosidade de como os sites eram criados então fui pesquisar. Desde cedo, busquei entender como as coisas funcionam, o que me levou a trilhar um caminho de constante aprendizado.</p>
+            <p>Com formação em Desenvolvedor e mais de 3 anos de experiência, já passei por desafios que mudaram minha resistencia e minha capacidade de liderança.</p>
+            <p><strong>Meus Valores:</strong> Acredito na transparência, na colaboração e, acima de tudo, em fazer bem feito. Meu objetivo não é apenas entregar resultados, mas gerar impacto positivo nas pessoas ao meu redor.</p>
+        </section>
+
+        <section id="skills" class="tab-content">
+            <h2>Competências</h2>
+            <p>Um mix de habilidades técnicas e comportamentais que desenvolvi ao longo da carreira.</p>
+            
+            <h3 style="font-size: 1.2rem; margin-top: 30px;">Hard Skills</h3>
+            <div class="skills-container">
+                <span class="skill-tag"><i class="fas fa-code"></i> Desenvolvimento Web</span>
+                <span class="skill-tag"><i class="fas fa-chart-line"></i> Análise de Dados</span>
+                <span class="skill-tag"><i class="fas fa-pen-nib"></i> Design UX/UI</span>
+                <span class="skill-tag"><i class="fas fa-language"></i> Inglês Basico</span>
+                <span class="skill-tag"><i class="fas fa-tasks"></i> Gestão de Projetos</span>
+            </div>
+
+            <h3 style="font-size: 1.2rem; margin-top: 30px;">Soft Skills</h3>
+            <div class="skills-container">
+                <span class="skill-tag"><i class="fas fa-lightbulb"></i> Criatividade</span>
+                <span class="skill-tag"><i class="fas fa-comments"></i> Comunicação Clara</span>
+                <span class="skill-tag"><i class="fas fa-brain"></i> Inteligência Emocional</span>
+            </div>
+        </section>
+
+        <section id="projetos" class="tab-content">
+            <h2>Experiências & Projetos</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Reestruturação de Processos</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: #999;">2024 - Empresa VITRO LTDA.</p>
+                    <p>Liderei a equipe responsável por otimizar o fluxo de trabalho, reduzindo o tempo de entrega em 30% e aumentando a satisfação do cliente.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Aplicativo PVITRO</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: #999;">Projeto Pessoal</p>
+                    <p>Desenvolvimento de um app focado em conectar pequenos produtores locais a consumidores da região. Fui responsável pelo design e estratégia.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Mentoria Voluntária</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; color: #999;">2025 - Atual</p>
+                    <p>Atuo como mentor para jovens que estão iniciando na carreira de tecnologia, ajudando na construção de currículo e soft skills.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="hobbies" class="tab-content">
+            <h2>Além do Trabalho</h2>
+            <p>Acredito que somos formados pelo que fazemos quando ninguém está olhando.</p>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <i class="fas fa-book-open" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 15px;"></i>
+                    <h3>Estudo</h3>
+                    <p>Estudo mais codigos e mais estrategias para alcançar o publico no mundo de Developer.</p>
+                </div>
+                <div class="project-card">
+                    <i class="fas fa-camera" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 15px;"></i>
+                    <h3>Fotografia</h3>
+                    <p>Gosto de capturar paisagens urbanas e momentos espontâneos em viagens.</p>
+                </div>
+                <div class="project-card">
+                    <i class="fas fa-hiking" style="font-size: 2rem; color: var(--accent-color); margin-bottom: 15px;"></i>
+                    <h3>Ingles</h3>
+                    <p>Faço curso de ingles e sempre nos momentos vagos sempre dou uma estudada.</p>.
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="tab-content">
+            <h2>Vamos Conversar?</h2>
+            <p>Estou sempre aberto a novas oportunidades, parcerias ou apenas uma boa conversa sobre o mercado.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 30px;">
+                <form action="#" style="max-width: 600px;">
+                    <div class="form-group">
+                        <label>Seu Nome</label>
+                        <input type="text" placeholder="Como devo te chamar?">
+                    </div>
+                    <div class="form-group">
+                        <label>Seu E-mail</label>
+                        <input type="email" placeholder="Para eu responder">
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem</label>
+                        <textarea placeholder="No que posso ajudar?"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Enviar Mensagem</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="mobile-menu">
+        <a href="#" class="nav-link active" data-target="home"><i class="fas fa-home"></i></a>
+        <a href="#" class="nav-link" data-target="sobre"><i class="fas fa-user"></i></a>
+        <a href="#" class="nav-link" data-target="projetos"><i class="fas fa-briefcase"></i></a>
+        <a href="#" class="nav-link" data-target="contato"><i class="fas fa-envelope"></i></a>
+    </nav>
+
+    <script>
+        const links = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.tab-content');
+
+        // Função para ativar aba
+        function activateTab(targetId) {
+            // Remove active de tudo
+            links.forEach(l => {
+                if(l.dataset.target === targetId) l.classList.add('active');
+                else l.classList.remove('active');
+            });
+            
+            sections.forEach(s => s.classList.remove('active'));
+
+            // Adiciona active no alvo
+            const targetSection = document.getElementById(targetId);
+            if(targetSection) {
+                targetSection.classList.add('active');
+                // Scroll suave para o topo no mobile
+                window.scrollTo(0,0);
+            }
+        }
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('data-target');
+                activateTab(targetId);
+            });
+        });
+    </script>
+</body>
+</html>
